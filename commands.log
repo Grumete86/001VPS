@@ -1,0 +1,58 @@
+sudo apt update
+sudo apt-get update
+sudo apt upgrade
+# INSTALAR DOCKER
+(https://www.webproductiva.es/tutorial-para-instalar-docker-en-servidor-ubuntu-v-22-o4/)
+
+sudo apt-get install curl apt-transport-https ca-certificates software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add 
+sudo add-apt-repository deb  https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
+sudo apt update
+apt-cache policy docker-ce
+sudo apt install docker-ce
+sudo systemctl status docker
+sudo docker run hello-world
+
+#PONER EN MARCHA NGINX
+sudo apt update
+sudo apt install nginx
+sudo reboot
+
+#ACTIVAR UFW
+sudo ufw allow 'Nginx HTTP'
+sudo ufw allow 'Nginx HTTPS'
+sudo ufw allow OpenSSH
+sudo ufw enable
+
+#CREAR DIRECTORIO APP
+sudo mkdir -p /var/www/liberalistico.com
+nano /var/www/liberalistico.com/index.html
+    <html>
+        <head>
+            <title>Welcome to liberalistico!</title>
+        </head>
+        <body>
+            <h1>Success!  The liberalistico server block is working!</h1>
+        </body>
+    </html>
+
+
+nano /etc/nginx/sites-available/liberalistico.com
+    server {
+            listen 80;
+            listen [::]:80;
+
+            root /var/www/liberalistico.com;
+            index index.html index.htm index.nginx-debian.html;
+
+            server_name your_domain www.liberalistico.com;
+
+            location / {
+                    try_files $uri $uri/ =404;
+            }
+    }
+
+ln -s /etc/nginx/sites-available/liberalistico.com /etc/nginx/sites-enabled/
+
+sudo nginx -t
+sudo systemctl restart nginx
