@@ -42,7 +42,7 @@ nano /etc/nginx/sites-available/liberalistico.com
             listen 80;
             listen [::]:80;
 
-            root /var/www/liberalistico.com;
+            root /var/www/liberalistico.com/001VPS;
             index index.html index.htm index.nginx-debian.html;
 
             server_name your_domain www.liberalistico.com;
