@@ -40,7 +40,6 @@ nano /var/www/liberalistico.com/index.html
 nano /etc/nginx/sites-available/liberalistico.com
     server {
             listen 80;
-            listen [::]:80;
 
             root /var/www/liberalistico.com/001VPS;
             index index.html index.htm index.nginx-debian.html;
@@ -56,3 +55,6 @@ ln -s /etc/nginx/sites-available/liberalistico.com /etc/nginx/sites-enabled/
 
 sudo nginx -t
 sudo systemctl restart nginx
+
+cd /var/www/liberalistico.com
+git clone https://github.com/Grumete86/001VPS.git
